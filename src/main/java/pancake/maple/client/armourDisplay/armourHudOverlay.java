@@ -38,7 +38,6 @@ public class armourHudOverlay implements HudRenderCallback {
         if (player != null) {
             armourElement[] items = armourElement.getArmourItems(player);
             for (armourElement item : items) {
-                LOGGER.info(item.getName() + " | " + item.getIdentifier());
                 renderImg(matrices, item.getIdentifier(), x, y, offset);
                 offset += 32;
             }

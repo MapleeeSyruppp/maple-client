@@ -34,6 +34,8 @@ public class armourIdentifiers {
     public static final Identifier leather_chestplate = new Identifier(TutorialMod.MOD_ID, "textures/armour/leather/leather_chestplate.png");
     public static final Identifier leather_leggings = new Identifier(TutorialMod.MOD_ID, "textures/armour/leather/leather_leggings.png");
     public static final Identifier leather_boots = new Identifier(TutorialMod.MOD_ID, "textures/armour/leather/leather_boots.png");
+    // elytra
+    public static final Identifier elytra = new Identifier(TutorialMod.MOD_ID, "textures/armour/elytra.png");
     // empty
     public static final Identifier empty = new Identifier(TutorialMod.MOD_ID, "textures/armour/empty.png");
 }

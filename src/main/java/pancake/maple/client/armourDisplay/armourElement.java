@@ -65,6 +65,7 @@ public class armourElement {
 
     private static Identifier getItemIdentifier(String name) {
         return switch (name) {
+            case "elytra" -> armourIdentifiers.elytra;
             case "netherite helmet" -> armourIdentifiers.netherite_helmet;
             case "netherite chestplate" -> armourIdentifiers.netherite_chestplate;
             case "netherite leggings" -> armourIdentifiers.netherite_leggings;
