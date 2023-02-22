@@ -8,11 +8,11 @@ import java.util.Objects;
 
 public class armourElement {
     private final String name;
-    private final int durability;
+    private final double durability;
     private final Identifier identifier;
 
     // Armour Item Object
-    public armourElement(String name, int durability, Identifier identifier) {
+    public armourElement(String name, double durability, Identifier identifier) {
         this.name = name;
         this.durability = durability;
         this.identifier = identifier;
@@ -22,7 +22,7 @@ public class armourElement {
         return name;
     }
 
-    public int getDurability() {
+    public double getDurability() {
         return durability;
     }
 
@@ -45,7 +45,7 @@ public class armourElement {
         for (ItemStack item : items) {
             if (!Objects.equals(getItemString(item), "Air")) {
                 String name = getItemString(item);
-                int durability = getItemDurability(item);
+                double durability = getItemDurability(item);
                 Identifier identifier = getItemIdentifier(name);
 
                 itemsObjectData[i] = new armourElement(name, durability, identifier); // Create Object
@@ -59,8 +59,11 @@ public class armourElement {
         return item.getItem().getName().getString().toLowerCase();
     }
 
-    private static int getItemDurability(ItemStack item) {
-        return (item.getMaxDamage() - item.getDamage());
+    private static double getItemDurability(ItemStack item) {
+        if(item.getMaxDamage() == 0){
+            return 0.0;
+        }
+        return (((double) item.getMaxDamage()) - (double)item.getDamage()) / (double)item.getMaxDamage();
     }
 
     private static Identifier getItemIdentifier(String name) {
