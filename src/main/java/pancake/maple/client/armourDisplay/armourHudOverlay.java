@@ -17,6 +17,11 @@ import java.text.DecimalFormat;
 public class armourHudOverlay implements HudRenderCallback {
     public static final Logger LOGGER = LoggerFactory.getLogger("maple");
 
+    private static final int green = 0x00CA00;
+    private static final int yellow = 0xffcc00;
+    private static final int orange = 0xff9900;
+    private static final int red = 0xff0000;
+
     @Override
     public void onHudRender(MatrixStack matrixStack, float tickDelta) {
         // Init needed data from client
@@ -34,23 +39,19 @@ public class armourHudOverlay implements HudRenderCallback {
         int x = (width / 50);
         int y = (height - 160);
         int offset = 32;
-
+        int color = red;
         DecimalFormat decimalFormat = new DecimalFormat("#.#");
 
-        RenderSystem.disableBlend();
-        RenderSystem.setShader(GameRenderer::getPositionTexProgram);
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 0.5F);
-
+        renderSetup();
         if (player != null) {
             armourElement[] items = armourElement.getArmourItems(player);
             for (armourElement item : items) {
                 renderImg(matrices, item.getIdentifier(), x, y, offset);
-                offset += 32;
-                double percentage = item.getDurability();
+                double percentage = item.getDurability() * 100.0;
                 if (percentage != 0.0) {
-                    String roundedPercentage = decimalFormat.format(percentage * 100) + "%";
-                    DrawableHelper.drawCenteredText(matrices, textRenderer, roundedPercentage, x + 36, y + offset - 24, 0xFFFFFFFF);
+                    renderTxt(matrices, textRenderer, decimalFormat, x, y, offset, percentage);
                 }
+                offset += 24;
             }
         }
         RenderSystem.enableBlend();
@@ -58,6 +59,28 @@ public class armourHudOverlay implements HudRenderCallback {
 
     private void renderImg(MatrixStack matrices, Identifier path, int x, int y, int offset) {
         RenderSystem.setShaderTexture(0, path);
-        DrawableHelper.drawTexture(matrices, x, y + offset, 0, 0, 24, 24, 24, 24);
+        DrawableHelper.drawTexture(matrices, x, y + offset, 0, 0, 20, 20, 20, 20);
+    }
+
+    private void renderTxt(MatrixStack matrices, TextRenderer textRenderer, DecimalFormat decimalFormat, int x, int y, int offset, double percentage) {
+        offset += 6;
+        String roundedPercentage = decimalFormat.format(percentage) + "%";
+        DrawableHelper.drawCenteredText(matrices, textRenderer, roundedPercentage, x + 36, y + offset, getColour(percentage));
+    }
+
+    private void renderSetup() {
+        RenderSystem.disableBlend();
+        RenderSystem.setShader(GameRenderer::getPositionTexProgram);
+        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 0.5F);
+    }
+
+    private int getColour(Double percentage) {
+        if (percentage >= 75.0) {
+            return green;
+        } else if (percentage >= 50.0) {
+            return yellow;
+        } else if (percentage >= 25.0) {
+            return orange;
+        } else return red;
     }
 }
