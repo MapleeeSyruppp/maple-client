@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawableHelper;
+import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
@@ -36,10 +37,14 @@ public class armourHudOverlay implements HudRenderCallback {
     private void onUpdate(MinecraftClient client, Entity player, MatrixStack matrices, TextRenderer textRenderer) {
         int width = client.getWindow().getScaledWidth();
         int height = client.getWindow().getScaledHeight();
-        int x = (width / 50);
-        int y = (height - 160);
+        int x = (width / 4) + (width / 4) + (width / 16);
+        int y = (height - 108);
         int offset = 32;
-        int color = red;
+
+        int itemPosX = x + 42;
+        int itemPosY = y + offset;
+        int txtPosX = itemPosX + 28;
+
         DecimalFormat decimalFormat = new DecimalFormat("#.#");
 
         renderSetup();
@@ -49,9 +54,9 @@ public class armourHudOverlay implements HudRenderCallback {
                 renderImg(matrices, item.getIdentifier(), x, y, offset);
                 double percentage = item.getDurability() * 100.0;
                 if (percentage != 0.0) {
-                    renderTxt(matrices, textRenderer, decimalFormat, x, y, offset, percentage);
+                    renderTxt(matrices, textRenderer, decimalFormat, txtPosX, itemPosY, offset, percentage);
                 }
-                offset += 24;
+                offset += 18;
             }
         }
         RenderSystem.enableBlend();
@@ -59,13 +64,12 @@ public class armourHudOverlay implements HudRenderCallback {
 
     private void renderImg(MatrixStack matrices, Identifier path, int x, int y, int offset) {
         RenderSystem.setShaderTexture(0, path);
-        DrawableHelper.drawTexture(matrices, x, y + offset, 0, 0, 20, 20, 20, 20);
+        DrawableHelper.drawTexture(matrices, x + 42, y + offset, 0, 0, 20, 20, 20, 20);
     }
 
     private void renderTxt(MatrixStack matrices, TextRenderer textRenderer, DecimalFormat decimalFormat, int x, int y, int offset, double percentage) {
-        offset += 6;
         String roundedPercentage = decimalFormat.format(percentage) + "%";
-        DrawableHelper.drawCenteredText(matrices, textRenderer, roundedPercentage, x + 36, y + offset, getColour(percentage));
+        DrawableHelper.drawCenteredText(matrices, textRenderer, roundedPercentage, x + 5, y + offset - 26, getColour(percentage));
     }
 
     private void renderSetup() {
