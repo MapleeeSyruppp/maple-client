@@ -24,7 +24,7 @@ public class coordHudOverlay implements HudRenderCallback {
 
         int width = client.getWindow().getScaledWidth();
         int height = client.getWindow().getScaledHeight();
-        int x = (width / 4) + (width / 9) + (width / 28);
+        int x = (width / 4) + (width / 16);
         int y = height + 165;
 
         DecimalFormat decimalFormat = new DecimalFormat("#.#");

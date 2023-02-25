@@ -36,7 +36,7 @@ public class armourHudOverlay implements HudRenderCallback {
     private void onUpdate(MinecraftClient client, Entity player, MatrixStack matrices, TextRenderer textRenderer) {
         int width = client.getWindow().getScaledWidth();
         int height = client.getWindow().getScaledHeight();
-        int x = (width / 4) + (width / 4) + (width / 24);
+        int x = (width / 4) + (width / 4) + (width / 24) + (width / 30);
         int y = (height - 108);
         int offset = 32;
 
