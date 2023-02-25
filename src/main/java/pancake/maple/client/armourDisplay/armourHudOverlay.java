@@ -5,7 +5,6 @@ import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawableHelper;
-import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
@@ -37,7 +36,7 @@ public class armourHudOverlay implements HudRenderCallback {
     private void onUpdate(MinecraftClient client, Entity player, MatrixStack matrices, TextRenderer textRenderer) {
         int width = client.getWindow().getScaledWidth();
         int height = client.getWindow().getScaledHeight();
-        int x = (width / 4) + (width / 4) + (width / 16);
+        int x = (width / 4) + (width / 4) + (width / 24);
         int y = (height - 108);
         int offset = 32;
 

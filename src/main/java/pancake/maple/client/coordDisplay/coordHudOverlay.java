@@ -24,17 +24,15 @@ public class coordHudOverlay implements HudRenderCallback {
 
         int width = client.getWindow().getScaledWidth();
         int height = client.getWindow().getScaledHeight();
-        int x = (width / 4) + (width / 9);
-        int y = height + 164;
+        int x = (width / 4) + (width / 9) + (width / 28);
+        int y = height + 165;
 
-        DecimalFormat decimalFormat = new DecimalFormat("#");
+        DecimalFormat decimalFormat = new DecimalFormat("#.#");
 
-        if (client != null) {
-            if (player != null) {
-                Vec3d pos = getPos(player);
-                renderPosTxt(matrices, textRenderer, decimalFormat, x, y, pos);
+        if (player != null) {
+            Vec3d pos = getPos(player);
+            renderPosTxt(matrices, textRenderer, decimalFormat, x, y, pos);
 
-            }
         }
 
     }
