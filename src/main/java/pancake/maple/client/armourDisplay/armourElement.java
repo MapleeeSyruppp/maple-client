@@ -30,10 +30,6 @@ public class armourElement {
         return identifier;
     }
 
-    public String toDataString() {
-        return "{" + "name='" + name + "', durability='" + durability + "', identifier='" + identifier + "'}";
-    }
-
     // Gets all armour items the player is currently wearing
     public static armourElement[] getArmourItems(Entity player) {
         Iterable<ItemStack> items = player.getArmorItems();
